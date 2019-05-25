@@ -5,14 +5,14 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class UserRegistration {
+public class UserRegistrationNotice {
 
     private UUID userId;
     private String userEmailAddress;
 
-    public UserRegistration() { }
+    public UserRegistrationNotice() { }
 
-    public UserRegistration(final UUID userId, final String userEmailAddress) {
+    public UserRegistrationNotice(final UUID userId, final String userEmailAddress) {
         this.userId = userId;
         this.userEmailAddress = userEmailAddress;
     }

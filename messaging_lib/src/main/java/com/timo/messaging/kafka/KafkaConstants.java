@@ -8,6 +8,8 @@ public class KafkaConstants {
 
     /* Topics */
     public static final String USER_REGISTRATION_TOPIC = "user_registration_topic";
+    public static final String ACTIVATION_ENTRY_VISIT_TOPIC = "activation_entry_visit_topic";
+    public static final String USER_ACTIVATED_NOTICE_TOPIC = "user_activated_notice_topic";
     public static final String USER_DELETION_TOPIC = "user_deletion_topic";
 
     private KafkaConstants() { }
