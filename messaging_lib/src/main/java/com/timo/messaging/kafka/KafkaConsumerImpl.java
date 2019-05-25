@@ -34,7 +34,7 @@ public class KafkaConsumerImpl<T> {
 
     /**
      * Call this method once to start the ThreadedConsumer and thus the CustomKafkaConsumer.
-     * Beware: Only call this method whenever the topics of this CustomKafkaConsumer have been set.
+     * Beware: Only call this method whenever the topics and consumer group of this CustomKafkaConsumer have been set.
      * @return Returns the instance of CustomKafkaConsumer on which this method has been called to support method stacking.
      */
     public KafkaConsumerImpl<T> start() {
@@ -50,6 +50,9 @@ class ThreadedConsumer<T> extends Thread {
     private final IKafkaCallback<T> callback;
 
     ThreadedConsumer(final List<String> topics, final String consumerGroup, final IKafkaCallback<T> callback) {
+        if (topics == null || topics.isEmpty()) throw new IllegalArgumentException("Can't run consumer without any given topics to subscribe to.");
+        if (consumerGroup == null || consumerGroup.isEmpty()) throw new IllegalArgumentException("Can't run consumer without any given consumer group to be part of.");
+
         final Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstants.KAFKA_BROKER_URL + ":" + KafkaConstants.KAFKA_BROKER_PORT);
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
@@ -60,8 +63,6 @@ class ThreadedConsumer<T> extends Thread {
         properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "1000");
         properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "25000");
         properties.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-
-        if (topics == null || topics.isEmpty()) throw new IllegalArgumentException("Can't run consumer without any given topics to subscribe to.");
 
         this.consumer = new KafkaConsumer<>(properties);
         this.callback = callback;
