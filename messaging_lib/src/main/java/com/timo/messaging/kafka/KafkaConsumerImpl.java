@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
-public class CustomKafkaConsumer<T> {
+public class KafkaConsumerImpl<T> {
 
     private List<String> topics;
     private IKafkaCallback<T> callback;
 
-    public CustomKafkaConsumer<T> setCallback(final IKafkaCallback<T> callback) {
+    public KafkaConsumerImpl<T> setCallback(final IKafkaCallback<T> callback) {
         this.callback = callback;
 
         return this;
     }
 
-    public CustomKafkaConsumer<T> setTopics(final List<String> topics) {
+    public KafkaConsumerImpl<T> setTopics(final List<String> topics) {
         this.topics = topics;
 
         return this;
@@ -30,7 +30,7 @@ public class CustomKafkaConsumer<T> {
      * Beware: Only call this method whenever the topics of this CustomKafkaConsumer have been set.
      * @return Returns the instance of CustomKafkaConsumer on which this method has been called to support method stacking.
      */
-    public CustomKafkaConsumer<T> start() {
+    public KafkaConsumerImpl<T> start() {
         new ThreadedConsumer<>(topics, callback).start();
 
         return this;
