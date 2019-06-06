@@ -12,5 +12,9 @@ public class KafkaConstants {
     public static final String USER_ACTIVATED_NOTICE_TOPIC = "user_activated_notice_topic";
     public static final String USER_DELETION_TOPIC = "user_deletion_topic";
 
+    /* Consumer Groups */
+    public static final String USER_DELETION_CONSUMER_GROUP_ID = "user-deletion.consumer-group";
+    public static final String ACTIVATED_USER_CONSUMER_GROUP_ID = "activated-user.consumer-group";
+
     private KafkaConstants() { }
 }
